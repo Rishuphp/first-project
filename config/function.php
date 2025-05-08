@@ -13,13 +13,25 @@ function webSetting($columnName){
     }
 }
 function webSetting2($columnName){
-    $setting = getById('bannerimg',1);
+    $setting = getById('bannerimg',71);
     if($setting['status'] ==200){
        return $setting['data'][$columnName];
     }
 }
 function webSetting1($columnName){
     $setting = getById('about_us',1);
+    if($setting['status'] ==200){
+       return $setting['data'][$columnName];
+    }
+}
+function webSetting3($columnName){
+    $setting = getById('services',1);
+    if($setting['status'] ==200){
+       return $setting['data'][$columnName];
+    }
+}
+function webSetting4($columnName){
+    $setting = getById('header',1);
     if($setting['status'] ==200){
        return $setting['data'][$columnName];
     }

@@ -246,75 +246,21 @@ if (isset($_POST['updateEnquiryStatus'])) {
         redirect('enquiries-view.php?id=' . $enquiryId, 'Something Went Wrong!');
     }
 }
-if (isset($_POST['saveimg'])) {
 
-
-
-    if ($_FILES['image']['size'] > 0) {
-        $image = $_FILES['image']['name'];
-        $imageFileTypes = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-        if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
-            redirect('homepage.php', 'Sorry only JPG, JPEG, PNG images only');
-        }
-        $path = "../assets/uploads/services/";
-        $imgExt = pathinfo($image, PATHINFO_EXTENSION);
-        $filename = time() . '.' . $image;
-
-        $finalImage = 'assets/uploads/services/' . $filename;
-    } else {
-        $finalImage = NULL;
-    }
-
-    
-    $servive_intro = validate($_POST['service_intro']);
-
-    $status = validate($_POST['status']) == true ? '1' : '0';
-
-    $query = "INSERT INTO bannerimg (image,intro,status) VALUES ('$finalImage','$servive_intro','$status')";
-    $result = mysqli_query($conn, $query);
-    if ($result) {
-        if ($_FILES['image']['size'] > 0) {
-            move_uploaded_file($_FILES['image']['tmp_name'], $path . $filename);
-        }
-        redirect('homepage.php', 'Images Added Successfully');
-    } else {
-        redirect('homepage.php', 'Something Went Wrong!');
-    }
-}
 if (isset($_POST['homesetting'])) {
     $title = validate($_POST['title']);
     $slug = validate($_POST['slug']);
-   
     $heading_description = validate($_POST['heading_description']);
     $heading = validate($_POST['heading']);
     
     $settingId = validate($_POST['settingId']);
-
     if ($_FILES['image']['size'] > 0) {
         $image = $_FILES['image']['name'];
+       
         $imageFileTypes = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-        if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
-            redirect('homepage.php', 'Sorry only JPG, JPEG, PNG images only');
-        }
-        $path = "../assets/uploads/services/";
-        $imgExt = pathinfo($image, PATHINFO_EXTENSION);
-        $filename = time() . '.' . $image;
-
-        $finalImage = 'assets/uploads/services/' . $filename;
-    } else {
-        $finalImage = NULL;
-    }
-
-   
         
-        $query = "INSERT INTO  bannerimg (title,slug,heading_description,heading,image) 
-    VALUES ('$title','$slug','$heading_description','$heading','$finalImage')";
-        $result = mysqli_query($conn, $query);
-
-    
-    if ($_FILES['image']['size'] > 0) {
-        $image = $_FILES['image']['name'];
-        $imageFileTypes = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+       
+        
         if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
             redirect('homepage.php', 'Sorry only JPG, JPEG, PNG images only');
         }
@@ -326,10 +272,74 @@ if (isset($_POST['homesetting'])) {
     } else {
         $finalImage = NULL;
     }
+    if ($_FILES['image2']['size'] > 0) {
+        $image2 = $_FILES['image2']['name'];
+       
+        $imageFileTypes = strtolower(pathinfo($image2, PATHINFO_EXTENSION));
+        
+       
+        
+        if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
+            redirect('homepage.php', 'Sorry only JPG, JPEG, PNG images only');
+        }
+        $path = "../assets/uploads/services/";
+        $imgExt = pathinfo($image, PATHINFO_EXTENSION);
+        $filename2 = time() . '.' . $image2;
+
+        $finalImage2 = 'assets/uploads/services/' . $filename2;
+    } else {
+        $finalImage2 = NULL;
+    }
+    if ($_FILES['image3']['size'] > 0) {
+        $image3 = $_FILES['image3']['name'];
+       
+        $imageFileTypes = strtolower(pathinfo($image3, PATHINFO_EXTENSION));
+        
+       
+        
+        if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
+            redirect('homepage.php', 'Sorry only JPG, JPEG, PNG images only');
+        }
+        $path = "../assets/uploads/services/";
+        $imgExt = pathinfo($image3, PATHINFO_EXTENSION);
+        $filename3 = time() . '.' . $image3;
+
+        $finalImage3 = 'assets/uploads/services/' . $filename3;
+    } else {
+        $finalImage3 = NULL;
+    }
+   
+    if ($settingId == 'insert') {
+        $query = "INSERT INTO  bannerimg (title,slug,heading_description,heading,image,image2,image3) 
+    VALUES ('$title','$slug','$heading_description','$heading','$finalImage','$finalImage2','$finalImage3')";
+        $result = mysqli_query($conn, $query);
     
+    }
+   
+    
+    if (is_numeric($settingId)) {
+    $query = "UPDATE bannerimg SET title='$title',
+
+slug='$slug',
+heading_description='$heading_description',
+heading='$heading',
+image='$finalImage',
+image2='$finalImage2',
+image3='$finalImage3'
+
+WHERE id='$settingId'";
+    $result = mysqli_query($conn, $query);
+    }
+  
     if ($result) {
         if ($_FILES['image']['size'] > 0) {
             move_uploaded_file($_FILES['image']['tmp_name'], $path . $filename);
+        }
+        if ($_FILES['image2']['size'] > 0) {
+            move_uploaded_file($_FILES['image2']['tmp_name'], $path . $filename2);
+        }
+        if ($_FILES['image3']['size'] > 0) {
+            move_uploaded_file($_FILES['image3']['tmp_name'], $path . $filename3);
         }
         redirect('homepage.php', 'Settings Saved');
     } else {
@@ -374,13 +384,47 @@ if (isset($_POST['aboutsetting'])) {
     WHERE id='$settingId'";
         $result = mysqli_query($conn, $query);
     }
-    if ($_FILES['image']['size'] > 0) {
-        move_uploaded_file($_FILES['image']['tmp_name'], $path . $filename);
-    }
+    
     if ($result) {
+        if ($_FILES['image']['size'] > 0) {
+            move_uploaded_file($_FILES['image']['tmp_name'], $path . $filename);
+        }
         redirect('about-us-page.php', 'Settings Saved');
     } else {
         redirect('about-us-page.php', 'Something Went Wrong.!');
+    }
+}
+if (isset($_POST['headersetting'])) {
+    $title = validate($_POST['title']);
+    $navbar1 = validate($_POST['navbar1']);
+    $navbar2 = validate($_POST['navbar2']);
+    $navbar3 = validate($_POST['navbar3']);
+    $navbar4 = validate($_POST['navbar4']);
+    $settingId = validate($_POST['settingId']);
+    
+
+    if ($settingId == 'insert') {
+        $query = "INSERT INTO  header (title,navbar1,navbar2,navbar3,navbar4) 
+    VALUES ('$title','$navbar1','$navbar2','$navbar3','$navbar4')";
+        $result = mysqli_query($conn, $query);
+    }
+    
+    if (is_numeric($settingId)) {
+        $query = "UPDATE header SET title='$title',
+    
+    
+    navbar1='$navbar1',
+    navbar2='$navbar2',
+    navbar3='$navbar3',
+    navbar4='$navbar4'
+    WHERE id='$settingId'";
+        $result = mysqli_query($conn, $query);
+    }
+    
+    if ($result) {
+        redirect('header.php', 'Settings Saved');
+    } else {
+        redirect('header.php', 'Something Went Wrong.!');
     }
 }
 ?>

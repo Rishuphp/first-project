@@ -13,9 +13,9 @@ include('includes/header.php');
                 <?= alertMessage();?>
                 <form action="code.php" method="POST" enctype="multipart/form-data" >
                 <?php
-                    $setting =getById('bannerimg',1);
+                    $setting =getById('bannerimg',71);
                     ?>
-                    
+                    <input type="hidden" name="settingId" value="<?=$setting['data']['id'] ?? 'insert'?>"/>
                     <div class="mb-3">
                         <label>Title</label>
                         <input type="text" name="title"value="<?= $setting['data']['title'] ?? ""?>" class="form-control">
@@ -25,8 +25,21 @@ include('includes/header.php');
                         <input type="text" name="slug"value="<?=$setting['data']['slug'] ?? ""?>" class="form-control">
                     </div>
                     <div class="mb-3">
-                    <label>Upload Banner Image</label>
+                    <label>Upload Banner Image 1 </label>
                     <input type="file" name="image"  class="form-control">
+                    <img src="<?= '../'.$setting['data']['image'] ?>" style="width:70px;height:70px" alt="Img"/>
+
+                    </div>
+                    <div class="mb-3">
+                    <label>Upload Banner Image 2</label>
+                    <input type="file" name="image2"  class="form-control">
+                    <img src="<?= '../'.$setting['data']['image2'] ?>" style="width:70px;height:70px" alt="Img"/>
+
+                    </div><div class="mb-3">
+                    <label>Upload Banner Image 3</label>
+                    <input type="file" name="image3"  class="form-control">
+                    <img src="<?= '../'.$setting['data']['image3'] ?>" style="width:70px;height:70px" alt="Img"/>
+
                     </div>
                     
                     <h4 class="my-3">Heading Description Settings</h4>

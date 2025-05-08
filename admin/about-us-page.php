@@ -28,7 +28,7 @@ include('includes/header.php');
                     <div class="mb-3">
                     <label>Upload Service Image</label>
                     <input type="file" name="image"  class="form-control" >
-                    <img src="<?= $setting['data']['image'] ?>" style="width:70px;height:70px" alt="Img"/>
+                    <img src="<?= '../'.$setting['data']['image'] ?>" style="width:70px;height:70px" alt="Img"/>
                     </div>
                     <div class="mb-3">
                         <label>Heading_Description</label>
