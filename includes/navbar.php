@@ -17,10 +17,26 @@
 
 <nav class="navbar navbar-expand-lg bg-white shadow sticky-top">
   <div class="container">
-    <a class="navbar-brand" href="#">
-    <?= webSetting4('title') ?? 'Website'; ?>
-    
+    <a class="navbar-brand" href="index.php" >
+    <?php
+            $introQuery = "SELECT * FROM header ";
+            $result = mysqli_query($conn,$introQuery);
+            if($result){
+                if(mysqli_num_rows($result) > 0){
+                    foreach($result as $row){
+
+                        ?>
+                        
+    <?php if($row['logo'] != '') : ?>
+                        <img src="<?= $row['logo'];?>" class="w-100 rounded" alt="Img" style="min-height:70px;max-height:70px;"/>
+                    <?php else: ?>
+                       
+                    <?php endif; ?>
+                    <?php }}}?>
+                    <br/>
+
   </a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

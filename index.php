@@ -5,7 +5,7 @@ include('includes/header.php');
 ?>
 
 <?= alertMessage();?>
-<div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" time="2">
 
     
   <div class="carousel-inner">
@@ -47,9 +47,9 @@ include('includes/header.php');
     </div>
    
 
+    <?php }}}?>
 </div>
-<?php }}}?>
-</div>
+
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -57,11 +57,8 @@ include('includes/header.php');
   <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
-  </button>
-
-
- 
-                         
+  </button>    
+</div>                    
 <div class="py-5">
 <div class="container">
     <div class="row">
@@ -125,7 +122,7 @@ include('includes/header.php');
         <div class="row">
             
             <div class="col-md-12 mb-4 text-center">
-                <h4></h4>
+                <h4>Our Services</h4>
                 <div class="underline mx-auto"></div>
             </div>
         <?php

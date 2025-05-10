@@ -401,11 +401,24 @@ if (isset($_POST['headersetting'])) {
     $navbar3 = validate($_POST['navbar3']);
     $navbar4 = validate($_POST['navbar4']);
     $settingId = validate($_POST['settingId']);
-    
+    if ($_FILES['logo']['size'] > 0) {
+        $logo = $_FILES['logo']['name'];
+        $imageFileTypes = strtolower(pathinfo($logo, PATHINFO_EXTENSION));
+        if ($imageFileTypes != 'jpg' && $imageFileTypes != 'jpeg' && $imageFileTypes != 'png') {
+            redirect('header.php', 'Sorry only JPG, JPEG, PNG images only');
+        }
+        $path = "../assets/uploads/services/";
+        $imgExt = pathinfo($logo, PATHINFO_EXTENSION);
+        $filename = time() . '.' . $logo;
+
+        $finalImage = 'assets/uploads/services/' . $filename;
+    } else {
+        $finalImage = NULL;
+    }
 
     if ($settingId == 'insert') {
-        $query = "INSERT INTO  header (title,navbar1,navbar2,navbar3,navbar4) 
-    VALUES ('$title','$navbar1','$navbar2','$navbar3','$navbar4')";
+        $query = "INSERT INTO  header (title,navbar1,navbar2,navbar3,navbar4,logo) 
+    VALUES ('$title','$navbar1','$navbar2','$navbar3','$navbar4','$finalImage')";
         $result = mysqli_query($conn, $query);
     }
     
@@ -416,12 +429,16 @@ if (isset($_POST['headersetting'])) {
     navbar1='$navbar1',
     navbar2='$navbar2',
     navbar3='$navbar3',
-    navbar4='$navbar4'
+    navbar4='$navbar4',
+    logo='$finalImage'
     WHERE id='$settingId'";
         $result = mysqli_query($conn, $query);
     }
     
     if ($result) {
+        if ($_FILES['logo']['size'] > 0) {
+            move_uploaded_file($_FILES['logo']['tmp_name'], $path . $filename);
+        }
         redirect('header.php', 'Settings Saved');
     } else {
         redirect('header.php', 'Something Went Wrong.!');
